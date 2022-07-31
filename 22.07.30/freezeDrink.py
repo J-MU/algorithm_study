@@ -7,12 +7,11 @@
 from collections import deque
 
 def bfs(graph,startRow,startCol,visited):
-    queue=deque([startRow,startCol])
+    queue=deque([(startRow,startCol)])
     visited[startRow][startCol]=True
 
     while queue:
         v=queue.popleft()
-        print(v)
         print(v,end=" ")
         for position in graph[v[0]][v[1]]:
             if not visited[position[0]][position[1]]:
@@ -32,8 +31,8 @@ def hasFalseInVisited(visited):
         for j in range(len(visited[i])):
             if not visited[i][j]:
                 return [i,j]
-        else:
-            return -1
+
+    return -1
 
 N,M=map(int,input().split())
 visited=[False]*N*M
@@ -70,14 +69,42 @@ print("------------visited--------------")
 for i in range(len(visited)):
     print(visited[i])
 print()
+
 while True:
     falseIndex=hasFalseInVisited(visited)
     if(falseIndex==-1):
         break
     count+=1
     bfs(graph,falseIndex[0],falseIndex[1],visited)
+    print()
+    print()
 
 print(count)
 
 
 count = 0
+
+
+# 테스트 케이스
+# 4 5
+# 00110
+# 00011
+# 11111
+# 00000
+#
+# 15 14
+# 00000111100000
+# 11111101111110
+# 11011101101110
+# 11011101100000
+# 11011111111111
+# 11011111111100
+# 11000000011111
+# 01111111111111
+# 00000000011111
+# 01111111111000
+# 00011111111000
+# 00000001111000
+# 11111111110011
+# 11100011111111
+# 11100011111111
