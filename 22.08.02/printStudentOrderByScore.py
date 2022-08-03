@@ -5,9 +5,15 @@
 
 array_size=int(input())
 array=list()
+
+def setting(data):
+    return data[1];
+
 for i in range(array_size):
     student_name,student_score=input().split()
     array.append((student_name,int(student_score)))
 
+array.sort(key=setting)
+
 for i in range(array_size):
-    print(array)
+    print(array[i][0],end=' ')
