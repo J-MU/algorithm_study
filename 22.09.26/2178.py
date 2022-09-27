@@ -1,33 +1,47 @@
+import sys
+
 N,M=list(map(int,input().split()))
 
-print(N,M)
+# print(N,M)
+
+direction=[(1,0),(0,1),(-1,0),(0,-1)]
 
 def bfs(curX,curY):
-    print(curX,curY)
+    count=0
+    minCount=sys.maxsize
+    # print(minCount)
 
-    if(graph[curX+1][curY]==1):
-        bfs(curX+1,curY)
-    if(graph[curX][curY-1]==1):
-        bfs(curX, curY-1)
-    if(graph[curX-1][curY]==1):
-        bfs(curX,curY+1)
-    if(graph[curX][curY+1]==1):
-        bfs(curX,curY+1)
+    queue=list()
+    # print(curX,curY)
+    queue.append((curX,curY,count+1))
+    graph[curY][curX]=0
+
+    while(len(queue)):
+        currentX,currentY,currentCount=queue.pop(0)
+        if(currentX<1 or currentX>=M or currentY<1 or currentY>=N):
+            continue
+        if(currentX==M-1 and currentY==N-1):
+            if(minCount>currentCount):
+                minCount=currentCount
+        for i in range(len(direction)):
+            dX=currentX+direction[i][0]
+            dY=currentY+direction[i][1]
+            if(graph[dY][dX]==0):
+                continue
+            queue.append((dX,dY,currentCount+1))
+            graph[currentY][currentX] = 0
+
+    print(minCount)
 
 
 
-graph=[[0]*(M+2) for _ in range(N+2)]
+graph=list()
 
 for i in range(N):
     row=list(map(int,input()))
-    for j in range(M):
-        graph[i+1][j+1]=row[j]
+    graph.append(row)
 
-for i in range(N+2):
+for i in range(N):
     print(graph[i])
 
-curX,curY=[1,1]
-
-print(curX,curY)
-
-# bfs(curX,curY)
+bfs(0,0)
